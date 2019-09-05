@@ -1,0 +1,18 @@
+[{
+  "header": "Maps",
+  "title": "Viewed area around Pheba",
+  "titleUrl": "https://www.google.com/maps/@33.5067677,-88.9401891,67620.1214991777a,30y",
+  "time": "2019-05-30T05:17:16.626Z",
+  "products": ["Maps"]
+},{
+  "header": "Maps",
+  "title": "Searched for Oktibbeha County Lake, Mississippi, USA",
+  "titleUrl": "https://www.google.co.uk/maps/place/Oktibbeha+County+Lake/@33.5088281,-88.9432825,14z/data\u003d!3m1!4b1!4m2!3m1!1s0x888139e250271cc3:0x9efde6f03cb09645",
+  "time": "2019-05-30T05:16:57.708Z",
+  "products": ["Maps"],
+  "locationInfos": [{
+    "name": "Around this area",
+    "url": "https://www.google.com/maps/@?api\u003d1\u0026map_action\u003dmap\u0026center\u003d37.773692,-122.429737\u0026zoom\u003d13",
+    "source": "From your device"
+  }]
+}]

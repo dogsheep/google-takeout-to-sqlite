@@ -1,0 +1,19 @@
+[{
+  "header": "Search",
+  "title": "Visited data liberation - How to download Google Search history? - Web ...",
+  "titleUrl": "https://www.google.com/url?q\u003dhttps://webapps.stackexchange.com/questions/95560/how-to-download-google-search-history\u0026usg\u003dAFQjCNF1Madwj4UsKA4EP-2mOUHKDYxEKQ",
+  "time": "2019-05-30T15:37:18.828Z",
+  "products": ["Search"]
+},{
+  "header": "Search",
+  "title": "Searched for \"myactivity\" google export",
+  "titleUrl": "https://www.google.com/search?q\u003d%22myactivity%22+google+export",
+  "time": "2019-05-30T15:37:14.947Z",
+  "products": ["Search"],
+  "locationInfos": [{
+    "name": "Around this area",
+    "url": "https://www.google.com/maps/@?api\u003d1\u0026map_action\u003dmap\u0026center\u003d37.773692,-122.429737\u0026zoom\u003d13",
+    "source": "From your places (Home)",
+    "sourceUrl": "https://support.google.com/maps/answer/3184808"
+  }]
+}]

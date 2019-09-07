@@ -5,8 +5,7 @@ from .utils import create_zip
 
 
 def test_my_activity():
-    path = pathlib.Path(__file__).parent / "my_activity"
-    zf = create_zip(path)
+    zf = create_zip()
     db = sqlite_utils.Database(memory=True)
     save_my_activity(db, zf)
     assert {

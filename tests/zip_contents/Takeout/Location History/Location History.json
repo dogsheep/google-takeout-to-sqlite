@@ -1,0 +1,43 @@
+{
+  "locations": [
+    {
+      "timestampMs": "1437263846012",
+      "latitudeE7": 376955289,
+      "longitudeE7": -1219287261,
+      "accuracy": 45
+    },
+    {
+      "timestampMs": "1437263905529",
+      "latitudeE7": 376955454,
+      "longitudeE7": -1219287454,
+      "accuracy": 43,
+      "activity": [
+        {
+          "timestampMs": "1437263882066",
+          "activity": [
+            {
+              "type": "UNKNOWN",
+              "confidence": 40
+            },
+            {
+              "type": "IN_VEHICLE",
+              "confidence": 25
+            },
+            {
+              "type": "ON_FOOT",
+              "confidence": 21
+            },
+            {
+              "type": "UNKNOWN",
+              "confidence": 21
+            },
+            {
+              "type": "STILL",
+              "confidence": 14
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

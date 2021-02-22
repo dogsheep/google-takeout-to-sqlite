@@ -28,6 +28,12 @@ Your location history records latitude, longitude and timestame for where Google
 
     $ google-takeout-to-sqlite location-history takeout.db ~/Downloads/takeout-20190530.zip
 
+## Email History
+
+You can import your emails from your Gmail mbox using this command:
+
+    $ google-takeout-to-sqlite mbox takeout.db ~/Downloads/gmail.mbox
+
 ## Browsing your data with Datasette
 
 Once you have imported Google data into a SQLite database file you can browse your data using [Datasette](https://github.com/simonw/datasette). Install Datasette like so:

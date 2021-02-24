@@ -1,0 +1,147 @@
+From 1277085061787347926@xxx Tue Aug 05 08:00:23 +0000 2008
+X-GM-THRID: 1277085061787347926
+X-Gmail-Labels: Unread
+Delivered-To: asdfereasdf@gmail.com
+Received: by 10.142.98.16 with SMTP id v16cs5204wfb;
+        Tue, 5 Aug 2008 01:00:23 -0700 (PDT)
+Received: by 10.151.26.12 with SMTP id d12mr926013ybj.145.1217923223126;
+        Tue, 05 Aug 2008 01:00:23 -0700 (PDT)
+Return-Path: <fw-general-return-20503-test=gmail.com@lists.zend.com>
+Received: from www.zend.com (lists.zend.com [67.15.86.102])
+        by mx.google.com with SMTP id 6si1509903yxg.6.2008.08.05.01.00.22;
+        Tue, 05 Aug 2008 01:00:23 -0700 (PDT)
+Received-SPF: pass (google.com: domain of fw-general-return-20503-test=gmail.com@lists.zend.com designates 67.15.86.102 as permitted sender) client-ip=67.15.86.102;
+Authentication-Results: mx.google.com; spf=pass (google.com: domain of fw-general-return-20503-test=gmail.com@lists.zend.com designates 67.15.86.102 as permitted sender) smtp.mail=fw-general-return-20503-test=gmail.com@lists.zend.com
+Received: (qmail 28326 invoked by uid 505); 5 Aug 2008 08:00:15 -0000
+Mailing-List: contact fw-general-help@lists.zend.com; run by ezmlm
+Precedence: bulk
+List-Post: <mailto:fw-general@lists.zend.com>
+List-Help: <mailto:fw-general-help@lists.zend.com>
+List-Unsubscribe: <mailto:fw-general-unsubscribe@lists.zend.com>
+List-Subscribe: <mailto:fw-general-subscribe@lists.zend.com>
+Delivered-To: mailing list fw-general@lists.zend.com
+Received: (qmail 28319 invoked from network); 5 Aug 2008 08:00:15 -0000
+Message-ID: <18826312.post@talk.nabble.com>
+Date: Tue, 5 Aug 2008 01:00:12 -0700 (PDT)
+From: =?UTF-8?Q?=C5=82_Zieli=C5=84ski?= <personlksdflkj@gmail.com>
+To: fw-general@lists.zend.com
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+X-Nabble-From: personasdflkj@gmail.com
+X-pstn-neptune: 0/0/0.00/0
+X-pstn-levels:     (S: 5.98501/99.90000 CV:99.0000 P:95.9108 M:88.1613 C:98.6951 )
+X-pstn-settings: 1 (0.1500:0.1500) cv gt3 gt2 gt1 p m c 
+X-pstn-addresses: from <personsdflkjer@gmail.com> [638/31] 
+Subject: [fw-general] Zend_Form and generating fields
+
+
+Unfortunately it is slow! For 10 products it takes 0.6 sec. to generate.
+Is there a better (more efficient) method to build such forms via Zend_Form?
+
+The same I noticed when tried to create a select element which contained
+many options (i.e. list of countries). Without ajax (autocomplete) it takes
+ages to generate and seems to be useless in this case. Shame.
+
+I wonder if Zend_Form can be used when it comes to generate a lot of
+inputs/options in select or I`m forced to create it by hand?
+
+
+
+From 1278212428183604564@xxx Sun Aug 17 18:39:23 +0000 2008
+X-GM-THRID: 1278204036336346264
+X-Gmail-Labels: Unread
+Delivered-To: testasdfasdf@gmail.com
+Received: by 10.142.98.16 with SMTP id v16cs546946wfb;
+        Sun, 17 Aug 2008 11:39:24 -0700 (PDT)
+Received: by 10.90.100.17 with SMTP id x17mr545483agb.48.1218998363996;
+        Sun, 17 Aug 2008 11:39:23 -0700 (PDT)
+Return-Path: <gnumed-devel-bounces+teslkjlj=gmail.com@gnu.org>
+Received: from lists.gnu.org (lists.gnu.org [199.232.76.165])
+        by mx.google.com with ESMTP id c44si5785715hsc.16.2008.08.17.11.39.23;
+        Sun, 17 Aug 2008 11:39:23 -0700 (PDT)
+Received-SPF: pass (google.com: domain of gnumed-devel-bounces+asdflkjer=gmail.com@gnu.org designates 199.232.76.165 as permitted sender) client-ip=199.232.76.165;
+Authentication-Results: mx.google.com; spf=pass (google.com: domain of gnumed-devel-bounces+asdflkjelrkj=gmail.com@gnu.org designates 199.232.76.165 as permitted sender) smtp.mail=gnumed-devel-bounces+asdlkjwer=gmail.com@gnu.org
+Received: from localhost ([127.0.0.1]:51303 helo=lists.gnu.org)
+	by lists.gnu.org with esmtp (Exim 4.43)
+	id 1KUn9v-0005Uo-D7
+	for lkwelrkj@gmail.com; Sun, 17 Aug 2008 14:39:23 -0400
+Received: from mailman by lists.gnu.org with tmda-scanned (Exim 4.43)
+	id 1KUn9s-0005Sa-Ct
+	for gnumed-devel@gnu.org; Sun, 17 Aug 2008 14:39:20 -0400
+Received: from exim by lists.gnu.org with spam-scanned (Exim 4.43)
+	id 1KUn9q-0005QU-TY
+	for gnumed-devel@gnu.org; Sun, 17 Aug 2008 14:39:20 -0400
+Received: from [199.232.76.173] (port=33439 helo=monty-python.gnu.org)
+	by lists.gnu.org with esmtp (Exim 4.43) id 1KUn9q-0005Q4-No
+	for gnumed-devel@gnu.org; Sun, 17 Aug 2008 14:39:18 -0400
+Received: from mail.gmx.net ([213.165.64.20]:56165)
+	by monty-python.gnu.org with smtp (Exim 4.60)
+	(envelope-from <person.person@example.net>) id 1KUn9q-0008Gg-44
+	for gnumed-devel@gnu.org; Sun, 17 Aug 2008 14:39:18 -0400
+Received: (qmail invoked by alias); 17 Aug 2008 18:39:16 -0000
+Received: from A7ee9.a.strato-dslnet.de (EHLO merkur.person.loc)
+	[89.62.126.233]
+	by mail.gmx.net (mp066) with SMTP; 17 Aug 2008 20:39:16 +0200
+X-Authenticated: #1433807
+X-Provags-ID: V01U2FsdGVkX1+dsZZuQ0OdkW7jgzdpHkRRth5+XhDeDDCDx7naLk
+	3bct2wCsMl/clU
+Received: from ncq by merkur.person.loc with local (Exim 4.69)
+	(envelope-from <person.person@example.net>) id 1KUn9n-0003eu-Ew
+	for gnumed-devel@gnu.org; Sun, 17 Aug 2008 20:39:15 +0200
+Date: Sun, 17 Aug 2008 20:39:15 +0200
+From: Person Person <Person.Person@example.net>
+To: gnumed-devel@gnu.org
+Subject: Re: [Gnumed-devel] Tree view formatting
+Message-ID: <20080817183915.GM3992@merkur.person.loc>
+Mail-Followup-To: gnumed-devel@gnu.org
+References: <272a08710808170925y47484f3fmcfb26f8686727762@mail.gmail.com>
+	<20080817170549.GH3992@merkur.person.loc>
+	<272a08710808171034o239f6167q3f7039727802dd09@mail.gmail.com>
+	<20080817180622.GK3992@merkur.person.loc>
+	<272a08710808171109x4b6429a1g89f6e594408080db@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <272a08710808171109x4b6429a1g89f6e594408080db@mail.gmail.com>
+User-Agent: Mutt/1.5.18 (2008-05-17)
+X-Y-GMX-Trusted: 0
+X-FuHaFi: 0.6899999999999999
+X-detected-kernel: by monty-python.gnu.org: Genre and OS details not
+	recognized.
+X-BeenThere: gnumed-devel@gnu.org
+X-Mailman-Version: 2.1.5
+Precedence: list
+List-Id: gnumed-devel.gnu.org
+List-Unsubscribe: <http://lists.gnu.org/mailman/listinfo/gnumed-devel>,
+	<mailto:gnumed-devel-request@gnu.org?subject=unsubscribe>
+List-Archive: <http://lists.gnu.org/pipermail/gnumed-devel>
+List-Post: <mailto:gnumed-devel@gnu.org>
+List-Help: <mailto:gnumed-devel-request@gnu.org?subject=help>
+List-Subscribe: <http://lists.gnu.org/mailman/listinfo/gnumed-devel>,
+	<mailto:gnumed-devel-request@gnu.org?subject=subscribe>
+Sender: gnumed-devel-bounces+asdlfkj=gmail.com@gnu.org
+Errors-To: gnumed-devel-bounces+asdflkj=gmail.com@gnu.org
+
+On Sun, Aug 17, 2008 at 03:09:55PM -0300, Bob Luz wrote:
+
+> when you say you have changed it ... can I assume it will make the 0.3.0 release
+yes
+
+> or is the release READY
+I hope it is "ready" so I can release it within the next few
+days. I usually wait a few days to see whether any errors
+show up. That's why we need you guys to test like mad.
+
+> and all our future discussions on this list
+> will from now on to be implemented on the 0.3.1 ?
+
+Not quite yet. And, rather 0.3+.
+
+Person
+
+
+_______________________________________________
+Gnumed-devel mailing list
+Gnumed-devel@gnu.org
+http://lists.gnu.org/mailman/listinfo/gnumed-devel

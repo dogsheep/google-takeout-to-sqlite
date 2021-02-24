@@ -47,3 +47,24 @@ def my_activity(db_path, zip_path):
     db = sqlite_utils.Database(db_path)
     zf = zipfile.ZipFile(zip_path)
     utils.save_location_history(db, zf)
+
+
+@cli.command(name="mbox")
+@click.argument(
+    "db_path",
+    type=click.Path(file_okay=True, dir_okay=False, allow_dash=False),
+    required=True,
+)
+@click.argument(
+    "mbox_path",
+    type=click.Path(file_okay=True, dir_okay=False, allow_dash=False),
+    required=True,
+)
+def my_mbox(db_path, mbox_path):
+    """
+    Import all emails from Gmail mbox to SQLite
+
+    Usage:  google-takeout-to-sqlite mbox mygmail.db /path/to/gmail.mbox
+    """
+    db = sqlite_utils.Database(db_path)
+    utils.save_emails(db, mbox_path)

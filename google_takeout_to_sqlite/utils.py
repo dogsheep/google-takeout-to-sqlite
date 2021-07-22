@@ -2,9 +2,7 @@ import json
 import hashlib
 import datetime
 import email
-import mailbox
 import traceback
-from rich.progress import track
 from email.utils import parsedate_tz, mktime_tz
 
 
@@ -59,12 +57,26 @@ def id_for_location_history(row):
         first_six,
     )
 
+def parse_mbox(mbox_file):
+    with open(mbox_file, 'rb') as f:
+        lines = []
+        while True:
+            line = f.readline()
+
+            is_boundary = not line or line.startswith(b'From ')
+            if is_boundary:
+                if len(lines) > 0:
+                    message = b''.join(lines)
+                    yield email.message_from_bytes(message)
+                lines = []
+            else:
+                lines.append(line)
+
+            if not line:
+                break
 
 def get_mbox(mbox_file):
     num_errors = 0
-    print("Preparing to process emails...")
-    mbox = mailbox.mbox(mbox_file)
-    print("Processing {} emails".format(len(mbox)))
 
     # These are all the Gmail email fields available
     # ['X-GM-THRID', 'X-Gmail-Labels', 'Delivered-To', 'Received', 'Received',
@@ -75,7 +87,7 @@ def get_mbox(mbox_file):
     # 'Content-Transfer-Encoding', 'X-Nabble-From', 'X-pstn-neptune',
     # 'X-pstn-levels', 'X-pstn-settings', 'X-pstn-addresses', 'Subject']
 
-    for email in track(mbox):
+    for email in parse_mbox(mbox_file):
         try:
             message = {}
             message["Message-Id"] = email["Message-Id"]
@@ -100,7 +112,7 @@ def get_mbox(mbox_file):
             except AttributeError:
                 message["Subject"] = str(email["Subject"])
 
-            message["date"] = get_message_date(email.get("Date"), email.get_from())
+            message["date"] = get_message_date(email.get("Date"), email.get("From"))
             message["body"] = get_email_body(email)
 
             yield message

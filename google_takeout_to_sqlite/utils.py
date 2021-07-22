@@ -3,8 +3,6 @@ import hashlib
 import datetime
 import email
 import traceback
-from email.utils import parsedate_tz, mktime_tz
-
 
 def save_my_activity(db, zf):
     my_activities = [
@@ -59,20 +57,26 @@ def id_for_location_history(row):
 
 def parse_mbox(mbox_file):
     with open(mbox_file, 'rb') as f:
+        delivery_date = ''
         lines = []
+
         while True:
             line = f.readline()
 
-            is_boundary = not line or line.startswith(b'From ')
-            if is_boundary:
-                if len(lines) > 0:
-                    message = b''.join(lines)
-                    yield email.message_from_bytes(message)
-                lines = []
+            is_new_record = line.startswith(b'From ')
+            is_eof = len(line) == 0
+
+            if is_eof or is_new_record:
+                message = b''.join(lines)
+                if message:
+                    yield delivery_date, email.message_from_bytes(message)
             else:
                 lines.append(line)
 
-            if not line:
+            if is_new_record:
+                delivery_date = line.strip()[-30:]
+                lines = []
+            elif is_eof:
                 break
 
 def get_mbox(mbox_file):
@@ -87,7 +91,7 @@ def get_mbox(mbox_file):
     # 'Content-Transfer-Encoding', 'X-Nabble-From', 'X-pstn-neptune',
     # 'X-pstn-levels', 'X-pstn-settings', 'X-pstn-addresses', 'Subject']
 
-    for email in parse_mbox(mbox_file):
+    for delivery_date, email in parse_mbox(mbox_file):
         try:
             message = {}
             message["Message-Id"] = email["Message-Id"]
@@ -112,7 +116,11 @@ def get_mbox(mbox_file):
             except AttributeError:
                 message["Subject"] = str(email["Subject"])
 
-            message["date"] = get_message_date(email.get("Date"), email.get("From"))
+            if "Date" in email:
+                message["date"] = parse_mail_date(email["Date"])
+            else:
+                message["date"] = parse_mail_date(delivery_date)
+
             message["body"] = get_email_body(email)
 
             yield message
@@ -170,17 +178,11 @@ def get_email_body(message):
     return body
 
 
-def get_message_date(get_date, get_from):
-    if get_date:
-        mail_date = get_date
-    else:
-        mail_date = get_from.strip()[-30:]
-
+def parse_mail_date(mail_date):
     datetime_tuple = email.utils.parsedate_tz(mail_date)
-    if datetime_tuple:
-        unix_time = email.utils.mktime_tz(datetime_tuple)
-        mail_date_iso8601 = datetime.datetime.utcfromtimestamp(unix_time).isoformat(" ")
-    else:
-        mail_date_iso8601 = ""
+    if not datetime_tuple:
+        return ""
 
+    unix_time = email.utils.mktime_tz(datetime_tuple)
+    mail_date_iso8601 = datetime.datetime.utcfromtimestamp(unix_time).isoformat(" ")
     return mail_date_iso8601

@@ -140,7 +140,7 @@ def save_emails(db, mbox_file):
     db["mbox_emails"].upsert_all(
         (
             {
-                "id": message["Message-Id"],
+                "id": message["Message-Id"] if "Message-Id" in message else message["X-GM-THRID"],
                 "X-GM-THRID": message["X-GM-THRID"],
                 "X-Gmail-Labels": message["X-Gmail-Labels"],
                 "From": message["From"],

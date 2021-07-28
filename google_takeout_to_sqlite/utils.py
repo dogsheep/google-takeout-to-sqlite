@@ -74,7 +74,7 @@ def parse_mbox(mbox_file):
                 lines.append(line)
 
             if is_new_record:
-                delivery_date = line.strip()[-30:]
+                delivery_date = str(line.strip()[-30:])
                 lines = []
             elif is_eof:
                 break

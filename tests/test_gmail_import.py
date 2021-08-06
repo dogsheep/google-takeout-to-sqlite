@@ -22,7 +22,7 @@ def test_import_gmails():
         },
         {
             "Subject": "test",
-            "From": "��� <123@example.net>",
+            "From": "罗 <123@example.net>",
             "To": "Person Person <Person.Person@example.net>",
             "id": "1705761119401391280",
             "body": "好好学习，天天向上\r\n".encode("utf-8"),
@@ -31,7 +31,7 @@ def test_import_gmails():
             "X-Gmail-Labels": "Chat",
         },
         {
-            "From": "=?UTF-8?Q?=C5=82_Zieli=C5=84ski?= <personlksdflkj@gmail.com>",
+            "From": "Keld Jørn Simonsen <keld@dkuug.dk>",
             "Subject": "[fw-general] Zend_Form and generating fields",
             "To": "fw-general@lists.zend.com",
             "X-GM-THRID": "1277085061787347926",

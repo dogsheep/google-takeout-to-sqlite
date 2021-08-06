@@ -157,17 +157,26 @@ def get_email_header(message, name, failobj=None):
     if value is None:
         return failobj
     else:
-        parts = []
-        for part, enc in header.decode_header(value):
-            try:
-                part = part.decode(enc or 'utf-8')
-            except LookupError: # encoding not found
-                part = part.decode('utf-8')
-            except AttributeError: # part was already a str
-                pass
-            parts.append(part)
+        try:
+            return decode_rfc_2047_str(value)
+        except:
+            # If the value is invalid, return the un-decoded string.
+            return value
 
-        return ''.join(parts)
+def decode_rfc_2047_str(value):
+    parts = []
+
+    for part, enc in header.decode_header(value):
+        try:
+            part = part.decode(enc or 'utf-8')
+        except LookupError: # encoding not found
+            part = part.decode('utf-8')
+        except AttributeError: # part was already a str
+            pass
+
+        parts.append(part)
+
+    return ''.join(parts)
 
 def get_email_body(message):
     """

@@ -2,6 +2,7 @@ import json
 import hashlib
 import datetime
 import email
+from email import policy
 import traceback
 import re
 
@@ -71,7 +72,7 @@ def parse_mbox(mbox_file):
             if is_eof or is_new_record:
                 message = b''.join(lines)
                 if message:
-                    yield delivery_date, message_id, email.message_from_bytes(message)
+                    yield delivery_date, message_id, email.message_from_bytes(message, policy=policy.compat32)
             else:
                 lines.append(line)
 

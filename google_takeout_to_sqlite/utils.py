@@ -3,6 +3,7 @@ import hashlib
 import datetime
 import email
 import traceback
+import re
 
 def save_my_activity(db, zf):
     my_activities = [
@@ -58,6 +59,7 @@ def id_for_location_history(row):
 def parse_mbox(mbox_file):
     with open(mbox_file, 'rb') as f:
         delivery_date = ''
+        message_id = ''
         lines = []
 
         while True:
@@ -69,12 +71,12 @@ def parse_mbox(mbox_file):
             if is_eof or is_new_record:
                 message = b''.join(lines)
                 if message:
-                    yield delivery_date, email.message_from_bytes(message)
+                    yield delivery_date, message_id, email.message_from_bytes(message)
             else:
                 lines.append(line)
 
             if is_new_record:
-                delivery_date = str(line.strip()[-30:])
+                (message_id, delivery_date) = re.match(r'^From (\w+)@xxx (.+)\r\n', line.decode('utf-8')).groups()
                 lines = []
             elif is_eof:
                 break
@@ -91,10 +93,12 @@ def get_mbox(mbox_file):
     # 'Content-Transfer-Encoding', 'X-Nabble-From', 'X-pstn-neptune',
     # 'X-pstn-levels', 'X-pstn-settings', 'X-pstn-addresses', 'Subject']
 
-    for delivery_date, email in parse_mbox(mbox_file):
+    for delivery_date, gmail_message_id, email in parse_mbox(mbox_file):
         try:
             message = {}
             message["Message-Id"] = email["Message-Id"]
+            if message["Message-Id"] is None:
+                message["Message-Id"] = gmail_message_id
             message["X-GM-THRID"] = email["X-GM-THRID"]
             message["X-Gmail-Labels"] = email["X-Gmail-Labels"]
 

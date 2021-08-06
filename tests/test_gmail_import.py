@@ -11,6 +11,16 @@ def test_import_gmails():
     mbox_emails = list(sorted(db["mbox_emails"].rows, key=lambda r: r["id"]))
     assert [
         {
+            "id": "1529555944956622147",
+            "when": "2016-03-23 01:57:00",
+            "From": "Person Person <Person.Person@example.net>",
+            "body": b'Nothing worse than being without good wifi\r\n',
+            "Subject": 'None',
+            "To": 'None',
+            "X-GM-THRID": "1529553825574740118",
+            "X-Gmail-Labels": "Chat",
+        },
+        {
             "From": "=?UTF-8?Q?=C5=82_Zieli=C5=84ski?= <personlksdflkj@gmail.com>",
             "Subject": "[fw-general] Zend_Form and generating fields",
             "To": "fw-general@lists.zend.com",

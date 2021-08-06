@@ -103,23 +103,9 @@ def get_mbox(mbox_file):
             message["X-GM-THRID"] = email["X-GM-THRID"]
             message["X-Gmail-Labels"] = email["X-Gmail-Labels"]
 
-            # These following try/excepts are here because for some reason
-            # these items returned from the mbox module are sometimes strings
-            # and sometimes headers and sometimes None.
-
-            try:
-                email["From"].decode("utf-8")
-            except AttributeError:
-                message["From"] = str(email["From"])
-            try:
-                email["To"].decode("utf-8")
-            except AttributeError:
-                message["To"] = str(email["To"])
-
-            try:
-                email["Subject"].decode("utf-8")
-            except AttributeError:
-                message["Subject"] = str(email["Subject"])
+            message["From"] = get_email_header(email, "From")
+            message["To"] = get_email_header(email, "To")
+            message["Subject"] = get_email_header(email, "Subject")
 
             if "Date" in email:
                 message["date"] = parse_mail_date(email["Date"])
@@ -164,6 +150,14 @@ def save_emails(db, mbox_file):
     db["mbox_emails"].enable_fts(["body", "Subject"])
     print("Finished!")
 
+def get_email_header(message, name, failobj=None):
+    # get will either return a str, email.header.Header, or None.
+    # This function converts the Header to a str if one is returned.
+    value = message.get(name)
+    if value is None:
+        return failobj
+    else:
+        return str(value)
 
 def get_email_body(message):
     """

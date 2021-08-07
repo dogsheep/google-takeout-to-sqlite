@@ -112,7 +112,13 @@ def get_mbox(mbox_file):
             else:
                 message["date"] = parse_mail_date(delivery_date)
 
-            message["body"] = get_email_body(email)
+            body = get_email_body(email)
+            try:
+                message["body"] = body.decode('utf-8')
+            except UnicodeDecodeError:
+                message["body"] = body
+            except AttributeError:
+                message["body"] = body
 
             yield message
         except (TypeError, ValueError, AttributeError, LookupError) as e:

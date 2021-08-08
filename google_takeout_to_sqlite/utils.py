@@ -141,6 +141,21 @@ def save_emails(db, mbox_file):
     """
     Import Gmail mbox from google takeout
     """
+    if not db["mbox_emails"].exists():
+        db["mbox_emails"].create(
+            {
+                "id": str,
+                "X-GM-THRID": str,
+                "X-Gmail-Labels": str,
+                "From": str,
+                "To": str,
+                "Subject": str,
+                "when": str,
+                "body": str,
+            },
+            pk="id",
+        )
+
     db["mbox_emails"].upsert_all(
         (
             {

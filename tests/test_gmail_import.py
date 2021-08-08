@@ -14,7 +14,7 @@ def test_import_gmails():
             "id": "1529555944956622147",
             "when": "2016-03-23 01:57:00",
             "From": "Person Person <Person.Person@example.net>",
-            "body": 'Nothing worse than being without good wifi\r\n\r\n',
+            "body": "Nothing worse than being without good wifi\r\n\r\n",
             "Subject": None,
             "To": None,
             "X-GM-THRID": "1529553825574740118",

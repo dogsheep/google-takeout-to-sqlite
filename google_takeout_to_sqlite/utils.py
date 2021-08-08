@@ -6,6 +6,7 @@ from email import policy, header
 import traceback
 import re
 
+
 def save_my_activity(db, zf):
     my_activities = [
         f.filename for f in zf.filelist if f.filename.endswith("My Activity.json")
@@ -57,30 +58,36 @@ def id_for_location_history(row):
         first_six,
     )
 
+
 def parse_mbox(mbox_file):
-    with open(mbox_file, 'rb') as f:
-        delivery_date = ''
-        message_id = ''
+    with open(mbox_file, "rb") as f:
+        delivery_date = ""
+        message_id = ""
         lines = []
 
         while True:
             line = f.readline()
 
-            is_new_record = line.startswith(b'From ')
+            is_new_record = line.startswith(b"From ")
             is_eof = len(line) == 0
 
             if is_eof or is_new_record:
-                message = b''.join(lines)
+                message = b"".join(lines)
                 if message:
-                    yield delivery_date, message_id, email.message_from_bytes(message, policy=policy.compat32)
+                    yield delivery_date, message_id, email.message_from_bytes(
+                        message, policy=policy.compat32
+                    )
             else:
                 lines.append(line)
 
             if is_new_record:
-                (message_id, delivery_date) = re.match(r'^From (\w+)@xxx (.+)\r\n', line.decode('utf-8')).groups()
+                (message_id, delivery_date) = re.match(
+                    r"^From (\w+)@xxx (.+)\r\n", line.decode("utf-8")
+                ).groups()
                 lines = []
             elif is_eof:
                 break
+
 
 def get_mbox(mbox_file):
     num_errors = 0
@@ -114,7 +121,7 @@ def get_mbox(mbox_file):
 
             body = get_email_body(email)
             try:
-                message["body"] = body.decode('utf-8')
+                message["body"] = body.decode("utf-8")
             except UnicodeDecodeError:
                 message["body"] = body
             except AttributeError:
@@ -156,6 +163,7 @@ def save_emails(db, mbox_file):
     db["mbox_emails"].enable_fts(["body", "Subject"])
     print("Finished!")
 
+
 def get_email_header(message, name, failobj=None):
     # get will either return a str, email.header.Header, or None.
     # This function converts the Header to a str if one is returned.
@@ -169,20 +177,22 @@ def get_email_header(message, name, failobj=None):
             # If the value is invalid, return the un-decoded string.
             return value
 
+
 def decode_rfc_2047_str(value):
     parts = []
 
     for part, enc in header.decode_header(value):
         try:
-            part = part.decode(enc or 'utf-8')
-        except LookupError: # encoding not found
-            part = part.decode('utf-8')
-        except AttributeError: # part was already a str
+            part = part.decode(enc or "utf-8")
+        except LookupError:  # encoding not found
+            part = part.decode("utf-8")
+        except AttributeError:  # part was already a str
             pass
 
         parts.append(part)
 
-    return ''.join(parts)
+    return "".join(parts)
+
 
 def get_email_body(message):
     """

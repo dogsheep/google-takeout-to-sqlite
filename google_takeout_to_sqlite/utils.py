@@ -5,6 +5,8 @@ import email
 from email import policy, header
 import traceback
 import re
+import os
+from rich.progress import BarColumn, DownloadColumn, Progress, TextColumn
 
 
 def save_my_activity(db, zf):
@@ -61,32 +63,49 @@ def id_for_location_history(row):
 
 def parse_mbox(mbox_file):
     with open(mbox_file, "rb") as f:
-        delivery_date = ""
-        message_id = ""
-        lines = []
+        f.seek(0, os.SEEK_END)
+        file_len = f.tell()
+        f.seek(0)
 
-        while True:
-            line = f.readline()
+        progress = Progress(
+            TextColumn("[bold blue]{task.description}", justify="right"),
+            BarColumn(bar_width=None),
+            "[progress.percentage]{task.percentage:>3.1f}%",
+            "•",
+            DownloadColumn(),
+        )
 
-            is_new_record = line.startswith(b"From ")
-            is_eof = len(line) == 0
+        with progress:
+            task = progress.add_task("[red]Processing...", total=file_len)
 
-            if is_eof or is_new_record:
-                message = b"".join(lines)
-                if message:
-                    yield delivery_date, message_id, email.message_from_bytes(
-                        message, policy=policy.compat32
-                    )
-            else:
-                lines.append(line)
+            delivery_date = ""
+            message_id = ""
+            lines = []
 
-            if is_new_record:
-                (message_id, delivery_date) = re.match(
-                    r"^From (\w+)@xxx (.+)\r\n", line.decode("utf-8")
-                ).groups()
-                lines = []
-            elif is_eof:
-                break
+            while True:
+                line = f.readline()
+
+                progress.update(task, advance=len(line))
+
+                is_new_record = line.startswith(b"From ")
+                is_eof = len(line) == 0
+
+                if is_eof or is_new_record:
+                    message = b"".join(lines)
+                    if message:
+                        yield delivery_date, message_id, email.message_from_bytes(
+                            message, policy=policy.compat32
+                        )
+                else:
+                    lines.append(line)
+
+                if is_new_record:
+                    (message_id, delivery_date) = re.match(
+                        r"^From (\w+)@xxx (.+)\r\n", line.decode("utf-8")
+                    ).groups()
+                    lines = []
+                elif is_eof:
+                    break
 
 
 def get_mbox(mbox_file):

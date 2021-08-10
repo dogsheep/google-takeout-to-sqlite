@@ -11,6 +11,9 @@ from email import policy, header, headerregistry
 # This policy is similar to policy.default but without strict header parsing.
 # Many emails contain invalid headers that cannot be parsed according to spec.
 header_factory = headerregistry.HeaderRegistry(use_default_map=False)
+header_factory.map_to_type(
+    "content-disposition", headerregistry.ContentDispositionHeader
+)
 email_policy = policy.EmailPolicy(header_factory=header_factory)
 
 
@@ -143,13 +146,7 @@ def get_mbox(mbox_file):
             else:
                 message["date"] = parse_mail_date(delivery_date)
 
-            body = get_email_body(email)
-            try:
-                message["body"] = body.decode("utf-8")
-            except UnicodeDecodeError:
-                message["body"] = body
-            except AttributeError:
-                message["body"] = body
+            message["body"] = get_email_body(email)
 
             yield message
         except (TypeError, ValueError, AttributeError, LookupError) as e:
@@ -237,18 +234,20 @@ def get_email_body(message):
     """
     return the email body contents
     """
-    body = None
-    if message.is_multipart():
-        for part in message.walk():
-            if part.is_multipart():
-                for subpart in part.walk():
-                    if subpart.get_content_type() == "text/plain":
-                        body = subpart.get_payload(decode=True)
-            elif part.get_content_type() == "text/plain":
-                body = part.get_payload(decode=True)
-    elif message.get_content_type() == "text/plain":
-        body = message.get_payload(decode=True)
-    return body
+    try:
+        body = message.get_body(preferencelist=("plain",))
+    except AttributeError:
+        return message.get_payload(decode=True)
+
+    if not body:
+        return None
+
+    try:
+        return body.get_content()
+    except:
+        # If headers are malformed, get_content may throw an exception.
+        # Fall back to get_payload method that doesn't use the ContentManager.
+        return body.get_payload(decode=True)
 
 
 def parse_mail_date(mail_date):

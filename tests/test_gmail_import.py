@@ -11,6 +11,16 @@ def test_import_gmails():
     mbox_emails = list(sorted(db["mbox_emails"].rows, key=lambda r: r["id"]))
     assert [
         {
+            "From": "Nathaniel Borenstein <nsb@bellcore.com>",
+            "Subject": "Formatted text mail",
+            "To": "Ned Freed <ned@innosoft.com>",
+            "X-GM-THRID": None,
+            "X-Gmail-Labels": None,
+            "body": "plain text version of message\r\n",
+            "id": "1318905722553808470",
+            "when": "1993-03-22 17:41:09",
+        },
+        {
             "id": "1529555944956622147",
             "when": "2016-03-23 01:57:00",
             "From": "Person Person <Person.Person@example.net>",
@@ -29,6 +39,16 @@ def test_import_gmails():
             "when": "2021-07-20 00:22:49",
             "X-GM-THRID": "1705761119401391280",
             "X-Gmail-Labels": "Chat",
+        },
+        {
+            "From": "foo1@bar.net",
+            "Subject": "A simple example",
+            "To": "foo2@bar.net",
+            "X-GM-THRID": None,
+            "X-Gmail-Labels": None,
+            "body": "Acute accent The following two lines look have the same screen rendering: E with acute accent becomes É. E with acute accent becomes É. Try clicking here.",
+            "id": "2086381499394883780",
+            "when": "2021-07-20 00:22:49",
         },
         {
             "From": "Keld Jørn Simonsen <keld@dkuug.dk>",

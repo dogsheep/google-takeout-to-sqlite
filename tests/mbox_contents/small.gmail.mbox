@@ -164,3 +164,41 @@ Subject: test
 Content-Type: text/plain; charset=utf-8
 
 好好学习，天天向上
+From 1318905722553808470@xxx Mon Mar 22 09:41:09 -0800 1993
+From: Nathaniel Borenstein <nsb@bellcore.com>
+To: Ned Freed <ned@innosoft.com>
+Date: Mon, 22 Mar 1993 09:41:09 -0800 (PST)
+Subject: Formatted text mail
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary=boundary42
+
+--boundary42
+Content-Type: text/plain; charset=us-ascii
+
+plain text version of message
+
+--boundary42
+Content-Type: text/html
+
+<b>html</b> version of message
+
+--boundary42--
+
+From 2086381499394883780@xxx Tue Jul 20 00:22:49 +0000 2021
+From: foo1@bar.net
+To: foo2@bar.net
+Subject: A simple example
+Mime-Version: 1.0
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<HTML>
+<head></head>
+<body>
+<h1>Acute accent</h1>
+The following two lines look have the same screen rendering:<p>
+E with acute accent becomes É.<br>
+E with acute accent becomes &Eacute;.<p>
+Try clicking <a href="http://www.ietf.cnri.reston.va.us/">
+here.</a><p>
+</body></HTML>

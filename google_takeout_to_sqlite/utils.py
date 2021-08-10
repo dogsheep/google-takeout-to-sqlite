@@ -5,6 +5,7 @@ import email
 import traceback
 import re
 import os
+from bs4 import BeautifulSoup
 from rich.progress import BarColumn, DownloadColumn, Progress, TextColumn
 from email import policy, header, headerregistry
 
@@ -235,19 +236,26 @@ def get_email_body(message):
     return the email body contents
     """
     try:
-        body = message.get_body(preferencelist=("plain",))
+        body = message.get_body(preferencelist=("plain", "html"))
     except AttributeError:
+        # Work around https://bugs.python.org/issue42892
         return message.get_payload(decode=True)
 
     if not body:
         return None
 
     try:
-        return body.get_content()
+        content = body.get_content()
     except:
         # If headers are malformed, get_content may throw an exception.
         # Fall back to get_payload method that doesn't use the ContentManager.
-        return body.get_payload(decode=True)
+        content = body.get_payload(decode=True)
+
+    if body.get_content_type() == "text/html":
+        doc = BeautifulSoup(content, features="lxml")
+        return doc.get_text(strip=True, separator=" ")
+    else:
+        return content
 
 
 def parse_mail_date(mail_date):

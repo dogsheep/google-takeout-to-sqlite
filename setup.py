@@ -26,7 +26,7 @@ setup(
         [console_scripts]
         google-takeout-to-sqlite=google_takeout_to_sqlite.cli:cli
     """,
-    install_requires=["sqlite-utils~=2.0", "rich"],
+    install_requires=["sqlite-utils~=2.0", "rich", "beautifulsoup4"],
     extras_require={"test": ["pytest"]},
     tests_require=["google-takeout-to-sqlite[test]"],
 )

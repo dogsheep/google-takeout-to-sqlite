@@ -2,11 +2,16 @@ import json
 import hashlib
 import datetime
 import email
-from email import policy, header
 import traceback
 import re
 import os
 from rich.progress import BarColumn, DownloadColumn, Progress, TextColumn
+from email import policy, header, headerregistry
+
+# This policy is similar to policy.default but without strict header parsing.
+# Many emails contain invalid headers that cannot be parsed according to spec.
+header_factory = headerregistry.HeaderRegistry(use_default_map=False)
+email_policy = policy.EmailPolicy(header_factory=header_factory)
 
 
 def save_my_activity(db, zf):
@@ -94,7 +99,7 @@ def parse_mbox(mbox_file):
                     message = b"".join(lines)
                     if message:
                         yield delivery_date, message_id, email.message_from_bytes(
-                            message, policy=policy.compat32
+                            message, policy=email_policy
                         )
                 else:
                     lines.append(line)

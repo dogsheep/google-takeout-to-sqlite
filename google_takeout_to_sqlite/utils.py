@@ -5,7 +5,7 @@ import datetime
 
 def save_my_activity(db, zf):
     my_activities = [
-        f.filename for f in zf.filelist if f.filename.endswith("My Activity.json")
+        f.filename for f in zf.filelist if f.filename.endswith("MyActivity.json")
     ]
     created = "my_activity" not in db.table_names()
     for filename in my_activities:

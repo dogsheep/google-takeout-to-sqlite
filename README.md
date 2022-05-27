@@ -24,7 +24,7 @@ This will create a database file called `takeout.db` if one does not already exi
 
 ## Location History
 
-Your location history records latitude, longitude and timestame for where Google has tracked your location. You can import it using this command:
+Your location history records latitude, longitude and timestamp for where Google has tracked your location. You can import it using this command:
 
     $ google-takeout-to-sqlite location-history takeout.db ~/Downloads/takeout-20190530.zip
 

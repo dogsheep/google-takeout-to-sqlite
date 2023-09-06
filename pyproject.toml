@@ -2,17 +2,25 @@
 name = "google-takeout-to-sqlite"
 version = "0.2"
 description = "Save data from Google Takeout to a SQLite database"
-authors = ["Simon Willison"]
+authors = ["Simon Willison <swillison@gmail.com>"]
 license = "Apache License, Version 2.0"
 readme = "README.md"
 homepage = "https://github.com/dogsheep/google-takeout-to-sqlite"
+keywords = [
+  "google",
+  "sqlite",
+  "datasette",
+  "dogsheep",
+  "datasette-io",
+  "datasette-tool",
+]
 
 [tool.poetry.dependencies]
-python = "*" # Specify your python version here
+python = "^3.6"
 sqlite-utils = "~1.11"
 
 [tool.poetry.dev-dependencies]
-pytest = "*"
+pytest = "^4.6.11"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

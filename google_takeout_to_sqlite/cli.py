@@ -1,7 +1,5 @@
 import click
-import os
 import sqlite_utils
-import json
 from google_takeout_to_sqlite import utils
 import sqlite_utils
 import zipfile
@@ -42,7 +40,7 @@ def my_activity(db_path, zip_path):
     type=click.Path(file_okay=True, dir_okay=False, allow_dash=False),
     required=True,
 )
-def my_activity(db_path, zip_path):
+def location_history(db_path, zip_path):
     "Import all Location History data from Takeout zip to SQLite"
     db = sqlite_utils.Database(db_path)
     zf = zipfile.ZipFile(zip_path)
